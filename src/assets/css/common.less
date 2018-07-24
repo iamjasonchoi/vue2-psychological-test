@@ -1,0 +1,123 @@
+// 一些可以用来通用的样式
+
+@import "reset";
+// 相关参数
+@bold-color: #cafaff;
+@normal-color: #abdef9;
+@border-color: #0093f0;
+@border: 1px solid @border-color;
+@green: #64d368;
+
+// 位置相关
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.margin-l-10 {
+  margin-left: 10px;
+}
+.margin-l-30 {
+  margin-left: 30px;
+}
+.margin-r-10 {
+  margin-right: 10px;
+}
+
+// 边框线相关
+.border-linear {
+  border-image: -webkit-linear-gradient(to right, rgba(0, 147, 240, 0) 0%, #0093f0 50%, rgba(0, 147, 240, 0) 100%) 1 1; // 图片边框向内偏移，图片边框的宽度
+  border-image: -moz-linear-gradient(to right, rgba(0, 147, 240, 0) 0%, #0093f0 50%, rgba(0, 147, 240, 0) 100%) 1 1;
+  border-image: linear-gradient(to right, rgba(0, 147, 240, 0) 0%, #0093f0 50%, rgba(0, 147, 240, 0) 100%) 1 1;
+}
+.border-linear-vertical {
+  border-image: -webkit-linear-gradient(to bottom, rgba(0, 147, 240, 0) 0%, #0093f0 50%, rgba(0, 147, 240, 0) 100%) 1 1; // 图片边框向内偏移，图片边框的宽度
+  border-image: -moz-linear-gradient(to bottom, rgba(0, 147, 240, 0) 0%, #0093f0 50%, rgba(0, 147, 240, 0) 100%) 1 1;
+  border-image: linear-gradient(to bottom, rgba(0, 147, 240, 0) 0%, #0093f0 50%, rgba(0, 147, 240, 0) 100%) 1 1;
+}
+
+// 文本相关
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+.text-center {
+  text-align: center !important;
+}
+.text-justify {
+  text-align: justify;
+  text-align-last: justify;
+}
+.text-primary {
+  color: #0093f0;
+}
+
+// 按钮样式
+.btn {
+  display: inline-block;
+  width: 110px;
+  border: 1px solid;
+  border-radius: 20px;
+  color: @normal-color;
+  line-height: 25px;
+  text-align: center;
+  cursor: pointer;
+  &[disabled='disabled'] {
+    border-color: #0e3d69 !important;
+    background-color: #4f697e !important;
+    cursor: not-allowed;
+  }
+}
+.btn-primary {
+  border-color: @border-color;
+  background-color: rgba(0, 125, 248, 0.5);
+  &:hover {
+    background-color: rgba(0, 125, 248, 1);
+  }
+
+}
+.btn-error {
+  border-color: rgb(236, 89, 137);
+  background-color: rgba(185, 72, 104, 0.7);
+  &:hover {
+    background-color: rgba(185, 72, 104, 1);
+  }
+}
+
+// 表单样式
+.input-field {
+  border: 1px solid rgba(0, 125, 248, 0.5);
+  border-radius: 5px;
+  background-color: rgba(12, 24, 44, 0.6);
+  line-height: 25px;
+  text-indent: 10px;
+  &[disabled] {
+    background-color: #4f697e;
+    cursor: not-allowed;
+  }
+}
+
+// 界面相关设置
+body {
+  color: @normal-color;
+  background: linear-gradient(to bottom right, #0d4973, #031340) fixed;
+}
+.container {
+  padding: 20px;
+}
+.bottom {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
