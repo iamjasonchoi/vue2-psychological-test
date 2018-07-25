@@ -1,17 +1,23 @@
 <template>
   <section>
-    <h2 class="title border-linear"></h2>
+    <h2 class="title border-linear">第{{itemNum}}题</h2>
     <div class="quiz container">
-      <h3 class="quiz-title"></h3>
+      <h3 class="quiz-title">{{quizList[itemNum - 1].title}}</h3>
       <ul class="quiz-optionList">
-        <li class="quiz-optionItem">
-          <span class="quiz-optionItemIndex"></span>
-          <span class="quiz-optionItemAnswer"></span>
+        <li class="quiz-optionItem"
+            v-for="option in quizList[itemNum - 1].optionList"
+            @click="choosed(option.index, option.score)"
+        >
+          <span class="quiz-optionItemIndex"
+                :class="{'active': option.index == choosedOption}">{{option.index}}</span>
+          <span class="quiz-optionItemAnswer">{{option.answer}}</span>
         </li>
       </ul>
+      <div class="err-msg" v-if="showErr">请选择相关答案</div>
     </div>
     <div class="bottom">
-      <button type="button" class="btn btn-primary">下一题</button>
+      <button type="button" class="btn btn-primary" @click="nextItem" v-if="itemNum < quizList.length">下一题</button>
+      <button type="button" class="btn btn-error" @click="submitAnswer" v-else>完成测试</button>
     </div>
   </section>
 </template>
@@ -21,64 +27,45 @@
   export default {
     name: 'item',
     data() {
+
       return {
-        itemId: null, //题目ID
-        choosedNum: null, //选中答案索引
-        choosedId:null //选中答案id
+        choosedOption: null, // 选中答案索引
+        choosedScore: 0, // 选中答案分值
+        showErr: false // 是否显示 未选择相关项的错误提示消息
       }
     },
-    props:['fatherComponent'],
-    computed: mapState([
-      'itemNum', //第几题
-      'level', //第几周
-      'itemDetail', //题目详情
-      'timer', //计时器
-    ]),
+    computed: mapState(['itemNum', 'quizList', 'timer']),
     methods: {
-      ...mapActions([
-        'addNum', 'initializeData',
-      ]),
-      //点击下一题
-      nextItem(){
-        if (this.choosedNum !== null) {
-          this.choosedNum = null;
-          //保存答案, 题目索引加一，跳到下一题
-          this.addNum(this.choosedId)
-        }else{
-          alert('您还没有选择答案哦')
-        }
+      ...mapActions(['addNum', 'initializeData']),
+      // 点击下一题
+      nextItem() {
+
+        if (null == this.choosedOption) return this.showErr = true;
+
+        // 保存答案, 题目索引加一，跳到下一题
+        this.choosedOption = null;
+        this.addNum(this.choosedScore);
       },
-      //索引0-3对应答案A-B
-      chooseType: type => {
-        switch(type){
-          case 0: return 'A';
-          case 1: return 'B';
-          case 2: return 'C';
-          case 3: return 'D';
-        }
+      // 选中的答案信息
+      choosed(index, score) {
+
+        this.showErr = false;
+        this.choosedOption = index;
+        this.choosedScore = score;
       },
-      //选中的答案信息
-      choosed(type,id){
-        this.choosedNum = type;
-        this.choosedId = id;
-      },
-      //到达最后一题，交卷，请空定时器，跳转分数页面
-      submitAnswer(){
-        if (this.choosedNum !== null) {
-          this.addNum(this.choosedId)
-          clearInterval(this.timer)
-          this.$router.push('score')
-        }else{
-          alert('您还没有选择答案哦')
-        }
-      },
-    },
-    created(){
-      //初始化信息
-      if(this.fatherComponent == 'home') {
-        this.initializeData();
-        document.body.style.backgroundImage = 'url(./static/img/1-1.jpg)';
+      // 到达最后一题，交卷，清空定时器，跳转分数页面
+      submitAnswer() {
+
+        if (null == this.choosedOption) return this.showErr = true;
+
+        this.addNum(this.choosedScore);
+        this.$router.push('score');
+        clearInterval(this.timer);
       }
+    },
+    created() {
+
+      this.initializeData();
     }
   }
 </script>
@@ -115,17 +102,18 @@
     padding: 10px 20px;
   }
   .quiz-optionItem {
-    margin-top: 8px;
-    font-size: 1.1rem;
+    margin-top: 10px;
+    font-size: 1rem;
+    cursor: pointer;
   }
   .quiz-optionItemIndex {
     display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 1.5rem/2;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 1.3rem/2;
     border: 1px solid #abdef9;
     margin-right: 3px;
-    line-height: calc(~"1.5rem - 2px");
+    line-height: calc(~"1.3rem - 2px");
     text-align: center;
     &.active {
       background-color: #64d368;
@@ -133,4 +121,9 @@
     }
   }
   .quiz-optionItemAnswer {}
+  .err-msg {
+    margin: 20px 0 0 20px;
+    color: #b94868;
+    font-size: 12px;
+  }
 </style>

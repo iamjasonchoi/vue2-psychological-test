@@ -1,21 +1,20 @@
-# vue2-psychological-test
+# 前言
+**vue2-psychological-test**项目是利用vue2、vuex、vue-router基础来完成一个简单的菲尔人格测验的单页面。
+# 技术栈
+nodejs less es6 vue2 vuex vue-router webpack
+# 项目运行
+**注意：项目是基于nodejs运行，需要提前安装好nodejs环境。**
 
-> 利用vue2/vuex/vue-router基础来完成一个简单的菲尔人格测验
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+git clone 项目地址
+cd vue2-psychological-test
+npm install
+run dev
+```
+然后访问```localhost:2000```即可进入欢迎页面，点击开始测试按钮即可开始菲尔人格测验。
+# 部分截图
+![img1](https://github.com/nut77/vue2-psychological-test/raw/master/screenshot/1.png)
+![img2](https://github.com/nut77/vue2-psychological-test/raw/master/screenshot/2.png)
+![img3](https://github.com/nut77/vue2-psychological-test/raw/master/screenshot/3.png)
+![img4](https://github.com/nut77/vue2-psychological-test/raw/master/screenshot/4.png)
+![img5](https://github.com/nut77/vue2-psychological-test/raw/master/screenshot/5.png)

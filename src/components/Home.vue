@@ -25,6 +25,8 @@
 <style scoped lang="less">
   .intro {
     margin: 1rem 0;
-    line-height: 1.5rem;
+    line-height: 1.7rem;
+    text-indent: 20px;
+    font-size: 1.1rem;
   }
 </style>
